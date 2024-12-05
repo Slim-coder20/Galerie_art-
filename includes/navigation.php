@@ -25,8 +25,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">S'inscrire</a></li>
-                            <li><a class="dropdown-item" href="#!">Se connecter</a></li>
+                            <li><a class="dropdown-item" href="register.php">S'inscrire</a></li>
+                            <li><a class="dropdown-item" href="login.php">Se connecter</a></li>
                             <li><a class="dropdown-item" href="#!">Nouvelle production</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
