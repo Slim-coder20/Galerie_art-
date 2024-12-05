@@ -2,13 +2,14 @@
     <footer class="py-4 bg-light mt-auto">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                <div class="text-muted">Copyright &copy; PalleteVirtuose 2024</div>
                 <div>
-                    <a href="#">Privacy Policy</a>
+                    <a href="#">Politique de confidentialité</a>
                     &middot;
-                    <a href="#">Terms &amp; Conditions</a>
+                    <a href="#">Conditions d'utilisation </a>
                 </div>
             </div>
         </div>
     </footer>
-</div>
+    <script src="https://kit.fontawesome.com/1409399387.js" crossorigin="anonymous"></script>
+</div> 
