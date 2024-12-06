@@ -1,7 +1,54 @@
-<?php require_once 'includes/head.php'; ?>
-<?php require_once 'includes/navigation.php'; ?>
-<?php require_once 'includes/header.php'; ?>
+<?php
+require_once 'includes/head.php';
+require_once 'includes/navigation.php';
+require_once 'DB/config.php';
+require_once 'Users.php';
 
+if (isset($_POST['inscription'])) {
+    // Initialiser les variables
+    $nom = '';
+    $prenom = '';
+    $email = '';
+    $password = '';
+    $biographie = '';
+    $photo_profile = 'avatar_defaut.png';
+
+    // Validation des champs
+    if (empty($_POST['prenom']) || !ctype_alpha($_POST['prenom'])) {
+        $message = "Votre prenom doit être une chaine de caractère alphabetique";
+    } elseif (empty($_POST['nom']) || !ctype_alpha($_POST['nom'])) {
+        $message = "Votre nom doit être une chaine de caractère alphabetique";
+    } elseif (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $message = "Merci de saisir une adresse mail valide !";
+    } elseif (empty($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) {
+        $message = "Merci de saisir un mot de passe valide";
+    } else {
+        // Affectation des valeurs aux variables si validation OK
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $biographie = $_POST['biographie'];
+
+        // Vérification et téléchargement de la photo de profil
+        if (isset($_FILES['photo_profil']) && $_FILES['photo_profil']['error'] == UPLOAD_ERR_OK) {
+            $photo_profile = $_FILES['photo_profil']['name'];
+            move_uploaded_file($_FILES['photo_profil']['tmp_name'], 'uploads/' . $photo_profile);
+        }
+
+        // Instancier l'objet Users et enregistrer
+        $user = new Users();
+        $result = $user->register($nom, $prenom, $email, $password, $biographie, $photo_profile);
+
+        if ($result) {
+            header('location: index.php');
+            exit();
+        } else {
+            $message = "Erreur lors de l'inscription";
+        }
+    }
+}
+?>
 
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
@@ -11,7 +58,9 @@
                     <div class="col-lg-7">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Créer votre compte</h3>
+
+                                <?php if (isset($message)) echo $message; ?>
+                                <h3 class="text-center font-weight-light my-4">Nouveau compte</h3>
                             </div>
                             <div class="card-body">
                                 <!--l'attribut enctype nous permet d'introduire des fichier de type : photos, vidéos etc-->
@@ -65,7 +114,7 @@
                                     <div class="mt-4 mb-0">
                                         <div class="d-grid">
                                             <input type="submit" name="inscription" value="inscription" class="btn btn-primary">
-                                    </div>
+                                        </div>
                                 </form>
                             </div>
                             <div class="card-footer text-center py-3">
