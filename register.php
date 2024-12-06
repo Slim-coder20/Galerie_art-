@@ -14,7 +14,8 @@
                                 <h3 class="text-center font-weight-light my-4">Créer votre compte</h3>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <!--l'attribut enctype nous permet d'introduire des fichier de type : photos, vidéos etc-->
+                                <form action="register.php" method="post" enctype="multipart/form-data">
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
@@ -62,7 +63,8 @@
 
 
                                     <div class="mt-4 mb-0">
-                                        <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">S'inscrire</a></div>
+                                        <div class="d-grid">
+                                            <input type="submit" name="inscription" value="inscription" class="btn btn-primary">
                                     </div>
                                 </form>
                             </div>
