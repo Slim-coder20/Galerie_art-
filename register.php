@@ -38,7 +38,7 @@ if (isset($_POST['inscription'])) {
             if (preg_match("#jpeg|png|jpg#", $_FILES['photo_profil']['type'])) {
                 $photo_profil = $_FILES['photo_profil']['name']; 
                 $path = "img/photos-profile/"; 
-                move_uploaded_file($_FILES['photo_profil']['tmp_name'], $path.$photo_profil); 
+                move_uploaded_file($_FILES['photo_profil']['tmp_name'], $path.$photo_profile); 
 
 
 
