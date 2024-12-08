@@ -30,10 +30,23 @@ if (isset($_POST['inscription'])) {
         $password = $_POST['password'];
         $biographie = $_POST['biographie'];
 
+
         // Vérification et téléchargement de la photo de profil
-        if (isset($_FILES['photo_profil']) && $_FILES['photo_profil']['error'] == UPLOAD_ERR_OK) {
-            $photo_profile = $_FILES['photo_profil']['name'];
-            move_uploaded_file($_FILES['photo_profil']['tmp_name'], 'uploads/' . $photo_profile);
+        if (empty($_FILES['photo_profil']['name'])) {
+            $photo_profil = 'avatar_defaut.png';
+        } else {
+            if (preg_match("#jpeg|png|jpg#", $_FILES['photo_profil']['type'])) {
+                $photo_profil = $_FILES['photo_profil']['name']; 
+                $path = "img/photos-profile/"; 
+                move_uploaded_file($_FILES['photo_profil']['tmp_name'], $path.$photo_profil); 
+
+
+
+
+
+            } else {
+                $message = "La photo de profile doit être de type : jpg , png ou  jpeg !";
+            }
         }
 
         // Instancier l'objet Users et enregistrer
