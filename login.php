@@ -2,6 +2,45 @@
 <?php require_once 'includes/navigation.php'; ?>
 <?php require_once 'includes/header.php'; ?>
 
+<?php 
+
+session_start(); 
+
+
+require_once './DB/config.php'; 
+require_once './Users.php'; 
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $email = $_POST['email']; 
+    $password = $_POST['password']; 
+
+    $user = new Users(); 
+    $userId = $user->login($email, $password); 
+
+    if($userId){
+        $_SESSION['id_artiste'] = $userId; 
+        header('location:index.php'); 
+        exit(); 
+    }else{
+        $message = 'identifiant de connexion invalide'; 
+    }
+}
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
@@ -10,6 +49,7 @@
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header">
+                                <?php  if( isset($message)) echo $message;?>
                                 <h3 class="text-center font-weight-light my-4">Connexion</h3>
                             </div>
                             <div class="card-body">

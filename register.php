@@ -14,10 +14,10 @@ if (isset($_POST['inscription'])) {
     $photo_profile = 'avatar_defaut.png';
 
     // Validation des champs
-    if (empty($_POST['prenom']) || !ctype_alpha($_POST['prenom'])) {
-        $message = "Votre prenom doit être une chaine de caractère alphabetique";
-    } elseif (empty($_POST['nom']) || !ctype_alpha($_POST['nom'])) {
-        $message = "Votre nom doit être une chaine de caractère alphabetique";
+    if (empty($_POST['prenom']) || !preg_match("/^[\p{L} '-]+$/u", $_POST['prenom'])) {
+        $message = "Votre prénom doit être une chaîne de caractères alphabétiques (accents et espaces autorisés)";
+    } elseif (empty($_POST['nom']) || !preg_match("/^[\p{L} '-]+$/u", $_POST['nom'])) {
+        $message = "Votre nom doit être une chaîne de caractères alphabétiques (accents et espaces autorisés)";
     } elseif (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $message = "Merci de saisir une adresse mail valide !";
     } elseif (empty($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) {
@@ -30,22 +30,17 @@ if (isset($_POST['inscription'])) {
         $password = $_POST['password'];
         $biographie = $_POST['biographie'];
 
-
         // Vérification et téléchargement de la photo de profil
         if (empty($_FILES['photo_profil']['name'])) {
-            $photo_profil = 'avatar_defaut.png';
+            $photo_profile = 'avatar_defaut.png';
         } else {
-            if (preg_match("#jpeg|png|jpg#", $_FILES['photo_profil']['type'])) {
-                $photo_profil = $_FILES['photo_profil']['name']; 
-                $path = "img/photos-profile/"; 
-                move_uploaded_file($_FILES['photo_profil']['tmp_name'], $path.$photo_profile); 
-
-
-
-
-
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if (in_array($_FILES['photo_profil']['type'], $allowedTypes)) {
+                $photo_profile = basename($_FILES['photo_profil']['name']);
+                $path = "img/photos-profile/";
+                move_uploaded_file($_FILES['photo_profil']['tmp_name'], $path . $photo_profile);
             } else {
-                $message = "La photo de profile doit être de type : jpg , png ou  jpeg !";
+                $message = "La photo de profil doit être de type : jpg, png ou jpeg !";
             }
         }
 
