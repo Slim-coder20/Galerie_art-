@@ -62,7 +62,20 @@ class Users
         return false; 
      }
 
- 
+     /**
+      * On va créer une méthode qui va nous permettre de récupéré les données de nos utulisateurs grâce à son identifiant 
+      */
+
+     public function getUserById($id_artiste){
+        $query = "SELECT * FROM artiste WHERE id_artiste = :id_artiste"; 
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query); 
+        $req->bindParam(':id_artiste', $id_artiste); 
+        $req->execute();
+
+        return $req->fetch(PDO::FETCH_ASSOC); 
+
+     }
 
 
 
