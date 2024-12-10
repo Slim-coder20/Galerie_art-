@@ -35,11 +35,24 @@ class Users
         return $req->rowCount() > 0; 
     }
 
+    public function getUserByEmail($email){
+        $query = "SELECT * FROM artiste WHERE email = :email"; 
+        $dbConnexion = $this->db->getConnexion(); 
+        $req = $dbConnexion->prepare($query); 
+
+        $req->bindParam(':email', $email);
+        $req->execute(); 
+
+        return $req->fetch(PDO::FETCH_ASSOC); 
+
+    }
+
 
     /**
      * Gestion de la connexion utiisatyeur 
      * création d'une méthode qui nous permettra de faire la connexion de nos utilisateurs 
      */
+    
 
 
      public function login($email, $password){
@@ -103,6 +116,19 @@ public function updateProfile($id_artiste, $prenom, $nom, $email, $biographie, $
 
 
 }
+public function getUserByEmailId($id_artiste, $email){
+    $query = "SELECT * FROM artiste WHERE email = :email AND id_artiste != :id_artiste"; 
+    $dbConnexion = $this->db->getConnexion(); 
+    $req = $dbConnexion->prepare($query); 
+
+    $req->bindParam(':email', $email);
+    $req->bindParam(':id_artiste', $id_artiste);
+    $req->execute(); 
+
+    return $req->fetch(PDO::FETCH_ASSOC); 
+
+}
+
 
 
 

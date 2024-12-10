@@ -56,13 +56,19 @@ if (isset($_SESSION['id_artiste'])) {
 
             // Instancier l'objet Users et enregistrer
             $user = new Users();
-            $result = $user->register($nom, $prenom, $email, $password, $biographie, $photo_profile);
+            $existingUser = $user->getUserByEmailId($id_artiste,$email); 
 
-            if ($result) {
-                header('location: index.php');
-                exit();
+            if ($existingUser) {
+                $message = "Cette adresse email est déjà utilliser"; 
+                
             } else {
-                $message = "Erreur lors de l'inscription";
+                $result = $user->updateProfile($id_artiste, $prenom, $nom, $email, $biographie, $photo_profile); 
+                if($result){
+                    header ('location: index.php'); 
+                    exit(); 
+                }else{
+                    $message = "Erreur lors de la mise à jour"; 
+                }
             }
         }
     }
