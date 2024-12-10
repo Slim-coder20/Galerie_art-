@@ -11,6 +11,10 @@ class Users
         $this->db = Database::getInstance();
     }
 
+    /**
+     * La méthode register nous permets d'insérer des données dans la base de donnée qu'on avait créé 
+     */
+
     public function register($nom, $prenom, $email, $password, $biographie, $photo_profile)
     {
 
@@ -77,8 +81,28 @@ class Users
 
      }
 
+/**
+ * On va créer une méthode qui va nous permettre d'insérer des mises à jour de nos utilisateurs dans notre base de donné galerie 
+ */
+
+public function updateProfile($id_artiste, $prenom, $nom, $email, $biographie, $photo_profile){
+
+    $query = "UPDATE artiste SET prenom = :prenom, nom = :nom, email = :email, biographie = :biographie, photo_profile = :photo_profile WHERE id_artiste = :id_artiste"; 
+
+    $dbConnexion = $this->db->getConnexion(); 
+    $req = $dbConnexion->prepare($query); 
+    $req->bindParam(':prenom', $prenom); 
+    $req->bindParam(':nom', $nom); 
+    $req->bindParam(':email', $email); 
+    $req->bindParam(':biographie', $biographie); 
+    $req->bindParam(':photo_profile', $photo_profile); 
+    $req->bindParam(':id_artiste', $id_artiste); 
+
+    $req->execute(); 
+    return $req->rowCount() > 0; 
 
 
+}
 
 
 
