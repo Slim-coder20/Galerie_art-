@@ -1,5 +1,8 @@
 <body>
-    <!-- Navigation-->
+
+  <?php session_start(); ?>
+    
+  <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="#!">Pallette Virtuose</a>
@@ -25,13 +28,27 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="register.php">S'inscrire</a></li>
-                            <li><a class="dropdown-item" href="login.php">Se connecter</a></li>
-                            <li><a class="dropdown-item" href="#!">Nouvelle production</a></li>
-                            <li>
+
+
+                            <?php
+                            if (!isset($_SESSION['id_artiste'])) {
+                                echo '<li><a class="dropdown-item" href="register.php">S\'inscrire</a></li>';
+                                echo '<li><a class="dropdown-item" href="login.php">Se connecter</a></li>';
+                            } else {
+                                echo '<li><a class="dropdown-item" href="#!">Nouvelle production</a></li>';
+                                echo '<li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="logout.php">Se deconnecter</a></li>
+                            <li><a class="dropdown-item" href="logout.php">Se deconnecter</a></li>';
+
+                            echo'<li><a class="dropdown-item" href="update_profile.php">Mise à jour du profile</a></li>';
+                            }
+                            ?>
+
+
+
+
+                            
                         </ul>
                     </li>
                 </ul>

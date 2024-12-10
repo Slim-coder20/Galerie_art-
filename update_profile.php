@@ -9,7 +9,9 @@ require_once 'Users.php';
 require_once 'DB/config.php';
 require_once 'Users.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // On va créer une condition qui conditionne l'exécution de ce code uniquement lorsque l'utilisateur est connecté
 if (isset($_SESSION['id_artiste'])) {
@@ -56,18 +58,17 @@ if (isset($_SESSION['id_artiste'])) {
 
             // Instancier l'objet Users et enregistrer
             $user = new Users();
-            $existingUser = $user->getUserByEmailId($id_artiste,$email); 
+            $existingUser = $user->getUserByEmailId($id_artiste, $email);
 
             if ($existingUser) {
-                $message = "Cette adresse email est déjà utilliser"; 
-                
+                $message = "Cette adresse email est déjà utilliser";
             } else {
-                $result = $user->updateProfile($id_artiste, $prenom, $nom, $email, $biographie, $photo_profile); 
-                if($result){
-                    header ('location: index.php'); 
-                    exit(); 
-                }else{
-                    $message = "Erreur lors de la mise à jour"; 
+                $result = $user->updateProfile($id_artiste, $prenom, $nom, $email, $biographie, $photo_profile);
+                if ($result) {
+                    header('location: index.php');
+                    exit();
+                } else {
+                    $message = "Erreur lors de la mise à jour";
                 }
             }
         }
@@ -140,4 +141,5 @@ if (isset($_SESSION['id_artiste'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
 </body>
+
 </html>

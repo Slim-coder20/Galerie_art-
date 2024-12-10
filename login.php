@@ -3,8 +3,9 @@
 <?php require_once 'includes/header.php'; ?>
 
 <?php 
-
-session_start(); 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 /**
  * session_start() en PHP est une fonction utilisée pour démarrer une session ou reprendre une session existante. Dans un contexte orienté objet, son rôle reste le même, mais elle est souvent utilisée dans des classes ou des architectures où les sessions jouent un rôle structuré dans la gestion de l'état des utilisateurs.
