@@ -1,6 +1,7 @@
 <?php require_once 'includes/head.php'; ?>
 <?php require_once 'includes/navigation.php'; ?>
 <?php require_once 'includes/header.php'; ?>
+<?php require_once './password.php'?>
 
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
@@ -20,8 +21,8 @@
                                         <label for="inputEmail">Email address</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a class="small" href="login.html">Return to login</a>
-                                        <a class="btn btn-primary" href="login.html">Reset Password</a>
+                                        <a class="small" href="login.php">Return to login</a>
+                                        <a class="btn btn-primary" href="login.php">Reset Password</a>
                                     </div>
                                 </form>
                             </div>
